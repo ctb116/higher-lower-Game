@@ -22,19 +22,26 @@ public class Game
 
 public class numberGame
 {
-  public int num = 50;
+  public int startNum = 50;
+  public int upperNum = 100;
+  public int lowerNum = 0;
   public string userfifty;
   public int fifty(string userfifty)
   {
+    int newNum = startNum;
     if (userfifty == "higher")
     {
-      num += (num / 2);
+      lowerNum = startNum;
+      newNum += ((upperNum - startNum) / 2);
+      startNum = newNum;
     }
     else if (userfifty == "lower")
     {
-      num -= (num / 2);
+      upperNum = startNum;
+      newNum -= ((startNum - lowerNum) / 2);
+      startNum = newNum;
     }
-    return num;
+    return newNum;
   }
 }
 
@@ -55,6 +62,17 @@ class Program
     Console.WriteLine("Is your number higher or lower than 50?");
     string userfifty = Console.ReadLine();
     numberGame guessfifty = new numberGame();
-    Console.WriteLine("Is your number higher or lower than " + guessfifty.fifty(userfifty));
+    if (userfifty == "Correct")
+    {
+      Console.WriteLine("I guessed it thanks for playing");
+    }
+    else
+    {
+      while (userfifty != "Correct")
+      {
+       Console.WriteLine("Is your number higher or lower than " + guessfifty.fifty(userfifty) + "?");
+       userfifty = Console.ReadLine();
+     }
+    }
   }
 }
