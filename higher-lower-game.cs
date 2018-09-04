@@ -1,25 +1,5 @@
 using System;
 
-public class Game
-{
-  public string user;
-  public string Guessing(string user)
-  {
-    if (user == "yes")
-    {
-      return "Wow thanks for playing with me";
-    }
-    else if (user == "no")
-    {
-      return "Okay, you don't want to play with me";
-    }
-    else
-    {
-      return "Sorry, I didn't understand that.";
-    }
-  }
-}
-
 public class numberGame
 {
   public int startNum = 50;
@@ -41,38 +21,45 @@ public class numberGame
       newNum -= ((startNum - lowerNum) / 2);
       startNum = newNum;
     }
+    else
+    {
+      Console.WriteLine("Please respond higher or lower");
+    }
     return newNum;
   }
 }
-
-
-
-
-
 
 class Program
 {
   public static void Main()
   {
-    Console.WriteLine("Would you like to play the higher/lower game?");
-    string user = Console.ReadLine();
-    Game play = new Game();
-    Console.WriteLine(play.Guessing(user));
-
-    Console.WriteLine("Is your number higher or lower than 50?");
-    string userfifty = Console.ReadLine();
-    numberGame guessfifty = new numberGame();
-    if (userfifty == "Correct")
+    Console.WriteLine("Would you like to play the higher/lower game? (yes/no)");
+    string userResponse = Console.ReadLine().ToLower();
+    if (userResponse == "yes")
     {
-      Console.WriteLine("I guessed it thanks for playing");
+      Console.WriteLine("Think of a number between 1 and 100 and I'll guess it.");
+    }
+    else if (userResponse == "no")
+    {
+      Console.WriteLine("That's too bad. Maybe next time? Goodbye.");
+      System.Environment.Exit(1);
     }
     else
     {
-      while (userfifty != "Correct")
-      {
-       Console.WriteLine("Is your number higher or lower than " + guessfifty.fifty(userfifty) + "?");
-       userfifty = Console.ReadLine();
-     }
+      Console.WriteLine("Sorry, I didn't understand what you said.");
+    }
+
+    Console.WriteLine("Is your number higher or lower than 50?");
+    string userfifty = Console.ReadLine().ToLower();
+    numberGame guessfifty = new numberGame();
+    while (userfifty != "correct")
+    {
+     Console.WriteLine("Is your number higher or lower than " + guessfifty.fifty(userfifty) + "?");
+     userfifty = Console.ReadLine();
+    }
+    if (userfifty == "correct")
+    {
+      Console.WriteLine("I guessed it thanks for playing");
     }
   }
 }
